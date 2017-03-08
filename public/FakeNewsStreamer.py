@@ -3,12 +3,16 @@ Created on Feb 16, 2017
 
 @author: lbozarth
 '''
-import tweepy
+import tweepy, csv, datetime
 
 class FakeNewsStreamer(tweepy.StreamListener):
-        
+    
     def on_status(self, status):
-        print(status)
+        dString = datetime.datetime.today().strftime('%Y-%m-%d')
+        fName = '../data/output/' + dString + '.csv'
+        with open(fName, 'a') as f:
+            writer = csv.writer(f, dialect=csv.excel, lineterminator="\n")
+            writer.writerow(status)
         return
 
     def on_exception(self, exception):
