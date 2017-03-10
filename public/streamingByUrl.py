@@ -34,5 +34,8 @@ def streaming(tracks):
 
 if __name__ == '__main__':
     tracks = getTracks()
+#     tracks = list(set(tracks))
+#     tracks = tracks[:200]
+#     print(len(tracks))
     streaming(tracks)
     pass

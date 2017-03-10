@@ -3,7 +3,7 @@
 
 import tweepy, datetime, csv, codecs, time
 
-maxTweets = 100 # Some arbitrary large number
+maxTweets = 1000000 # Some arbitrary large number
 tweetsPerQry = 100  # this is the max the API permits
 since_time = "2016-09-01"
 # until_time = "2017-03-07"
@@ -13,14 +13,14 @@ consumer_secret = 'Owho0Enr7hF54S6GylbKMrXuSie3IKpmXE2Rt9G5vzyK2dVFow'
 access_key = '27848871-XEJ8TEasqpS0Bbgu2W2ScCPqzSwUTnNbmlWUKJLUG'
 access_secret = '7pDKC87xNfHvjgnAabvd1Fqeb1aCCVAs61utr5j7iW014'
 
-def getTracks():
+def getTracks(filename):
 	dotcoms = []
-	with open('../data/input/sources.csv', 'rU') as f:
+	with open(filename, 'rU') as f:
 		f.readline()
 		reader = csv.reader(f, delimiter=",")
 		for row in reader:
 			dotcoms.append(row[0])
-	print(dotcoms)
+# 	print(dotcoms)
 	print(len(dotcoms))
 	return dotcoms
 
@@ -59,11 +59,13 @@ def get_all_tweets(query, fName):
 		oldest = new_tweets[-1].id
 
 if __name__ == '__main__':
-	dotcoms = getTracks()
+	dotcoms = getTracks('../data/input/sources.csv')
+	fullDotcoms = getTracks('../data/input/sources_full.csv')
+	diff = list(set(fullDotcoms) - set(dotcoms))
+	print(len(diff))
 	for dotcom in dotcoms:
 		searchQuery = 'url:' + dotcom  # this is what we're searching for
 		fName = "../data/output/" + dotcom + ".csv" # We'll store the tweets in a text file.
 		print(searchQuery, fName)
 		get_all_tweets(searchQuery, fName)
-		break
 	print("Done")
