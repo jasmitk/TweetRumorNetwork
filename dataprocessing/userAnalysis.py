@@ -22,13 +22,17 @@ def processData(filename, userDict):
         reader = csv.reader(f, delimiter=",")
         for row in reader:
             try:
-                user = row[1]
+                user = row[2]
+#                 if user == '816289049552027648':
+#                     print row;
+#                     break
                 if user in userDict:
                     userDict[user] = userDict[user] + 1
                 else:
                     userDict[user] = 0;
             except IndexError as e:
-                print(row)
+#                 print(row)
+                continue
     return
 
 def genUsers():
@@ -38,7 +42,7 @@ def genUsers():
         processData(os.path.join(dataDir,filename), userDict)
     print(len(userDict))
     sorted_data = sorted(userDict.items(), key=operator.itemgetter(1), reverse=True)
-    writeToCsv("../data/analysis/users.csv", sorted_data)
+    writeToCsv("../data/analysis/users_by_screen_name_1000plus.csv", sorted_data)
         
 if __name__ == '__main__':
     genUsers()

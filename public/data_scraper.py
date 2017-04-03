@@ -63,7 +63,7 @@ if __name__ == '__main__':
 	fullDotcoms = getTracks('../data/input/sources_full.csv')
 	diff = list(set(fullDotcoms) - set(dotcoms))
 	print(len(diff))
-	for dotcom in dotcoms:
+	for dotcom in diff:
 		searchQuery = 'url:' + dotcom  # this is what we're searching for
 		fName = "../data/output/" + dotcom + ".csv" # We'll store the tweets in a text file.
 		print(searchQuery, fName)
